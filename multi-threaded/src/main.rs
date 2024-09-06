@@ -8,7 +8,7 @@ const WIDTH: usize = 800;
 const HEIGHT: usize = 600;
 
 fn main() {
-    let (sender, receiver) = mpsc::channel::<Option<(usize, usize)>>(); // Specify the type for the channel
+    let (sender, receiver) = mpsc::channel::<Option<(usize, usize)>>();
     let buffer = Arc::new(Mutex::new(vec![0; WIDTH * HEIGHT]));
 
     let mut window = Window::new(
@@ -44,7 +44,6 @@ fn main() {
         if window.get_mouse_down(MouseButton::Left) {
             handle_input(&window, &sender);
         } else {
-            // Signal the drawing thread to reset the last draw position
             sender.send(None).unwrap();
         }
 
